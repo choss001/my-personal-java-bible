@@ -21,7 +21,7 @@ public class TreeMapEx1 {
     while (it.hasNext()) {
       Map.Entry<String, Integer> entry = (Map.Entry)it.next();
       int value = ((Integer) entry.getValue()).intValue();
-      System.out.println(entry.getKey() + " : " + printB);
+      System.out.println(entry.getKey() + " : " + printBar('#', value) + " " + value);
     }
     System.out.println();
     // map을 ArrayList로 변환한 다음에 Collections.sort() 정렬
@@ -29,15 +29,38 @@ public class TreeMapEx1 {
     List list = new ArrayList(set);
 
     //static void sort(List list, Comparator c)
-    Collections.sort(list, new Value);
-  }
-
-  static class ValueComparator implements Comparator<Integer>{
-
-    @Override
-    public int compare(Integer o1, Integer o2) {
-      return 0;
+    Collections.sort(list, new ValueComparator());
+    it = list.iterator();
+    System.out.println("= 값의 크기가 큰 수서로 정렬 =");
+    while (it.hasNext()) {
+      Map.Entry entry = (Map.Entry) it.next();
+      int value = ((Integer) entry.getValue()).intValue();
+      System.out.println(entry.getKey() + " : " + printBar('#', value) + " " + value);
     }
   }
 
+  static class ValueComparator implements Comparator<Object>{
+
+    @Override
+    public int compare(Object o1, Object o2) {
+        if ((o1 instanceof Map.Entry) && (o2 instanceof Map.Entry)) {
+        Map.Entry<Object, Object> e1 = (Map.Entry) o1;
+        Map.Entry<Object, Object> e2 = (Map.Entry) o2;
+
+        int v1 = ((Integer) e1.getValue()).intValue();
+        int v2 = ((Integer) e2.getValue()).intValue();
+        return v2 - v1;
+      }
+      return -1;
+    }
+  }
+
+  public static String printBar(char ch, int value) {
+    char[] bar = new char[value];
+
+    for (int i = 0; i < bar.length; i++) {
+      bar[i] = ch;
+    }
+    return new String(bar);
+  }
 }
