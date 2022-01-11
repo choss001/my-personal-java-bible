@@ -1,0 +1,6 @@
+#Properties Example
+#Sun Jan 09 23:33:30 KST 2022
+seiz=10
+language=\uD55C\uAE00
+timeout=30
+capacity=10
